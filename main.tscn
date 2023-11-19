@@ -1,0 +1,213 @@
+[gd_scene load_steps=14 format=3 uid="uid://dqgsb0bii7tpe"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_u4tq6"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_yyxyi"]
+transparency = 4
+depth_draw_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.521569)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h48wr"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ckfue"]
+material = SubResource("StandardMaterial3D_h48wr")
+size = Vector3(10, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_aue1g"]
+material = SubResource("StandardMaterial3D_h48wr")
+size = Vector3(15, 0.1, 0.1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_whrx4"]
+sky_top_color = Color(0.384314, 0.454902, 0.54902, 1)
+sky_horizon_color = Color(0.647059, 0.654902, 0.670588, 1)
+ground_bottom_color = Color(0.384314, 0.454902, 0.54902, 1)
+ground_horizon_color = Color(0.647059, 0.654902, 0.670588, 1)
+ground_curve = 0.15
+
+[sub_resource type="Sky" id="Sky_fggvi"]
+sky_material = SubResource("ProceduralSkyMaterial_whrx4")
+
+[sub_resource type="Environment" id="Environment_jmblp"]
+background_mode = 2
+sky = SubResource("Sky_fggvi")
+tonemap_mode = 3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f6w0m"]
+top_radius = 0.25
+height = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w8dlt"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f77b3"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_uet3t"]
+height = 1.0
+radius = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fv7y8"]
+
+[node name="Main" type="Node3D" groups=["main"]]
+script = ExtResource("1_u4tq6")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -24)
+current = true
+fov = 45.0
+size = 200.0
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+material_override = SubResource("ORMMaterial3D_yyxyi")
+cast_shadow = 2
+use_collision = true
+
+[node name="Outer" type="CSGBox3D" parent="CSGCombiner3D"]
+use_collision = true
+size = Vector3(11, 16, 11)
+
+[node name="Inner" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+operation = 2
+size = Vector3(10, 15, 10)
+
+[node name="MeshLinesForPerspective" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+
+[node name="Horizontal" type="Node3D" parent="MeshLinesForPerspective"]
+
+[node name="Line1" type="MeshInstance3D" parent="MeshLinesForPerspective/Horizontal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, -5)
+mesh = SubResource("BoxMesh_ckfue")
+skeleton = NodePath("../../..")
+
+[node name="Line4" type="MeshInstance3D" parent="MeshLinesForPerspective/Horizontal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 5)
+mesh = SubResource("BoxMesh_ckfue")
+skeleton = NodePath("../../..")
+
+[node name="Line2" type="MeshInstance3D" parent="MeshLinesForPerspective/Horizontal"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, -5, 0)
+mesh = SubResource("BoxMesh_ckfue")
+skeleton = NodePath("../../..")
+
+[node name="Line3" type="MeshInstance3D" parent="MeshLinesForPerspective/Horizontal"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, -5, 0)
+mesh = SubResource("BoxMesh_ckfue")
+skeleton = NodePath("../../..")
+
+[node name="Vertical" type="Node3D" parent="MeshLinesForPerspective"]
+
+[node name="Line1" type="MeshInstance3D" parent="MeshLinesForPerspective/Vertical"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -5, 2.5, -5)
+mesh = SubResource("BoxMesh_aue1g")
+skeleton = NodePath("../../..")
+
+[node name="Line2" type="MeshInstance3D" parent="MeshLinesForPerspective/Vertical"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -5, 2.5, 5)
+mesh = SubResource("BoxMesh_aue1g")
+skeleton = NodePath("../../..")
+
+[node name="Line3" type="MeshInstance3D" parent="MeshLinesForPerspective/Vertical"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 5, 2.5, 5)
+mesh = SubResource("BoxMesh_aue1g")
+skeleton = NodePath("../../..")
+
+[node name="Line4" type="MeshInstance3D" parent="MeshLinesForPerspective/Vertical"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 5, 2.5, -5)
+mesh = SubResource("BoxMesh_aue1g")
+skeleton = NodePath("../../..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jmblp")
+
+[node name="ArmFull" type="Node3D" parent="."]
+
+[node name="Arm" type="CharacterBody3D" parent="ArmFull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ArmFull/Arm"]
+mesh = SubResource("CylinderMesh_f6w0m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ArmFull/Arm"]
+shape = SubResource("SphereShape3D_w8dlt")
+
+[node name="Link1" type="RigidBody3D" parent="ArmFull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ArmFull/Link1"]
+mesh = SubResource("CylinderMesh_f77b3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ArmFull/Link1"]
+shape = SubResource("CylinderShape3D_uet3t")
+
+[node name="Tip" type="Node3D" parent="ArmFull/Link1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ArmJoint" type="JoltGeneric6DOFJoint3D" parent="ArmFull"]
+angular_limit_x/upper = 0.436332
+angular_limit_x/lower = -0.436332
+angular_limit_y/upper = 0.436332
+angular_limit_y/lower = -0.436332
+angular_limit_z/upper = 0.436332
+angular_limit_z/lower = -0.436332
+angular_spring_x/enabled = true
+angular_spring_x/frequency = 1.0
+angular_spring_x/damping = 1.0
+angular_spring_y/enabled = true
+angular_spring_y/frequency = 1.0
+angular_spring_y/damping = 1.0
+angular_spring_z/enabled = true
+angular_spring_z/frequency = 1.0
+angular_spring_z/damping = 1.0
+node_a = NodePath("../Arm")
+node_b = NodePath("../Link1")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5, 0)
+
+[node name="CatJoint" type="JoltGeneric6DOFJoint3D" parent="ArmFull"]
+angular_limit_x/enabled = false
+angular_limit_y/enabled = false
+angular_limit_z/enabled = false
+node_a = NodePath("../Link1")
+node_b = NodePath("../Helper")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+
+[node name="Helper" type="RigidBody3D" parent="ArmFull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ArmFull/Helper"]
+shape = SubResource("SphereShape3D_fv7y8")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Text" type="Label" parent="CanvasLayer/Control/HSplitContainer"]
+layout_mode = 2
+text = "Score: "
+
+[node name="Score" type="Label" parent="CanvasLayer/Control/HSplitContainer"]
+layout_mode = 2
+text = "0"

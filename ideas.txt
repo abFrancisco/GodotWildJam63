@@ -1,0 +1,21 @@
+###Vampire survivors but with a cat, enemies are things that cats usually attack, feathers(toys), flies, strings, rat boss, mean cat, bird, eagle?, dog?
+
+suika game in 3d, but with cats neko game?
+suika game smallest fruit fits 14 times on the playing board
+bigest fruit fits 1.7 times
+second biggest fruit fits 2.3 times
+
+since game is 3d and we have one extra dimension, since volume goes up with the square of the area fruits should be in general larger(or at least appear larger)
+smallest fruit can fit 10 times
+biggest can fit 1.5 times horizontally, meaning diagonally you could fit 2 at least
+dimensions
+suika game has 11 levels
+since im very low on time ill start with 6
+
+playing zone size - 10 wide, 15 tall
+level 1 - 1 meter
+level 2 - 1.6 meter
+level 3 - 2.4
+level 4 - 3.4
+level 5 - 4.6 meter
+level 6 - 6 meter, maybe a bit more

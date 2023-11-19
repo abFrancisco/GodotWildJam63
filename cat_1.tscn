@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://lmc4nai6aqxm"]
+
+[ext_resource type="Script" path="res://cat_1.gd" id="1_1qapf"]
+[ext_resource type="Texture2D" uid="uid://i63eebknvh7s" path="res://textures/cat_1_v2.png" id="2_xb2ga"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kac7a"]
+albedo_texture = ExtResource("2_xb2ga")
+
+[sub_resource type="SphereMesh" id="SphereMesh_g5i1n"]
+material = SubResource("StandardMaterial3D_kac7a")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_800gu"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_52v4o"]
+radius = 1.0
+
+[node name="Cat_1" type="RigidBody3D" groups=["cat_1"]]
+continuous_cd = true
+max_contacts_reported = 10
+contact_monitor = true
+freeze = true
+script = ExtResource("1_1qapf")
+
+[node name="Sphere" type="MeshInstance3D" parent="."]
+cast_shadow = 2
+mesh = SubResource("SphereMesh_g5i1n")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_800gu")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_52v4o")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
